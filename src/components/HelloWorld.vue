@@ -42,6 +42,7 @@
           @blur="onFieldBlur(index)"
           @input="(e) => updateFieldValue(index, e)"
           @keydown="(e) => onKeyDown(e, index)"
+           @click.stop="handleEditableFieldClick"
           >{{ part.value }}</span>
         </span>
       </template>
@@ -550,6 +551,12 @@ const navigateToAdjacentElement = (currentIndex, direction) => {
 const focusPlaceholder = (index, position = 'start') => {
   focusEditableField(index, position);
 };
+// 添加处理可编辑字段点击事件的函数
+const handleEditableFieldClick = (event) => {
+  // 这里不需要额外操作，@click.stop已阻止事件冒泡
+  // 浏览器会自动将光标放在点击位置
+  console.log('可编辑区域被点击');
+};
 
 // 修复deletePlaceholder函数，确保正确处理首元素
 const deletePlaceholder = async (index) => {
@@ -679,7 +686,7 @@ const deletePlaceholder = async (index) => {
   background-color: rgba(0, 120, 255, 0.05);
   padding: 2px 2px;
   margin: 0 2px;
-  cursor: pointer;
+  cursor: text;
   transition: background-color 0.2s, border-color 0.2s;
   vertical-align: baseline; /* 确保对齐 */
 }
